@@ -1,0 +1,77 @@
+U74_1: CPU.RiscV64 @ sysbus
+    cpuType: "rv64gc"
+    hartId: 0
+    privilegeArchitecture: PrivilegeArchitecture.Priv1_10
+    timeProvider: clint
+
+U74_2: CPU.RiscV64 @ sysbus
+    cpuType: "rv64gc"
+    hartId: 1
+    privilegeArchitecture: PrivilegeArchitecture.Priv1_10
+    timeProvider: clint
+
+dtim: Memory.MappedMemory @sysbus 0x0100000
+    size: 0x2000
+
+itim0: Memory.MappedMemory @sysbus 0x01808000
+    size: 0x8000
+
+itim1: Memory.MappedMemory @sysbus 0x01820000
+    size: 0x8000
+
+clint: IRQControllers.CoreLevelInterruptor  @ sysbus 0x02000000
+    frequency: 6250000
+    numberOfTargets: 2
+    [0, 1] -> U74_1@[3, 7]
+    [2, 3] -> U74_2@[3, 7]
+
+L2LIM: Memory.MappedMemory @sysbus 0x08000000
+    size: 0x200000
+
+plic: IRQControllers.BeagleV_PlatformLevelInterruptController @ sysbus 0x0c000000
+    [0, 1] -> U74_1@[11, 9]
+    [2, 3] -> U74_2@[11, 9]
+    numberOfSources: 127
+    numberOfContexts: 4
+    prioritiesEnabled : true
+
+uart0: UART.NS16550@sysbus 0x11870000
+    wideRegisters: true
+    IRQ -> plic@92
+
+uart1: UART.NS16550@sysbus 0x11880000
+    wideRegisters: true
+    IRQ -> plic@93
+
+uart2: UART.NS16550@sysbus 0x12430000
+    wideRegisters: true
+    IRQ -> plic@72
+
+uart3: UART.NS16550@sysbus 0x12440000
+    wideRegisters: true
+    IRQ -> plic@73
+
+pwm0: HiFive_PWM @sysbus 0x12490000
+
+gpio: GPIOPort.SiFive_GPIO @sysbus 0x1191000
+
+ddr: Memory.MappedMemory @sysbus 0x80000000
+    size: 0x200000000
+
+ethernet: Network.SynopsysEthernetMAC @sysbus 0x10020000
+    IRQ -> plic@6
+
+phy: Network.EthernetPhysicalLayer @ethernet 0
+    BasicControl: 0x0880
+    Id1: 0x0022
+    Id2: 0x1620
+    AutoNegotiationAdvertisement: 0x00A1
+    AutoNegotiationLinkPartnerBasePageAbility: 0x0000
+
+sysbus:
+    init:
+        Tag <0x104C0000 0x10000> "USB30"
+        Tag <0x11860000 0x10000> "QSPI"
+        Tag <0x118B0000 0x10000> "I2C0"
+        Tag <0x118C0000 0x10000> "I2C1"
+        Tag <0x12410000 0x10000> "SPI2"
