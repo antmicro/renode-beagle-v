@@ -4,7 +4,23 @@ Copyright (c) 2021 Antmicro ([www.antmicro.com](https://www.antmicro.com/))
 
 This repository contains a script, platform defitinion, test suite and custom peripheral models necessary to simulate OpenSBI and U-Boot on [the BeagleV platform](https://beaglev.seeed.cc) in [Renode](https://renode.io).
 
+## Installing Renode
+
 To run this platform you need Renode in version at least 1.12 installed in the host operating system (see the [documentation](https://docs.renode.io/en/latest/introduction/installing.html) for details).
+
+For Linux, you can use the portable version:
+```
+wget https://github.com/renode/renode/releases/download/v1.12.0/renode-1.12.0.linux-portable.tar.gz
+mkdir renode_portable
+tar xf renode-1.12.0.linux-portable.tar.gz -C renode_portable --strip-components=1
+cd renode_portable
+export PATH="`pwd`:$PATH"
+```
+
+To run Robot tests, you will also need to install some Python dependencies:
+```
+python3 -m pip install -r tests/requirements.txt
+```
 
 ## Running the simulation
 
