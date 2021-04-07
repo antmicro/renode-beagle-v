@@ -1,15 +1,16 @@
-# Renode's simulation of the BeagleV platform
+# Renode simulation of the BeagleV platform
+
 Copyright (c) 2021 Antmicro ([www.antmicro.com](https://www.antmicro.com/))
 
-This repository contains script, platform defitinion, test suite and custom peripherals models necessary to simulate OpenSBI and Uboot on [the BeagleV platform](https://beaglev.seeed.cc) in Renode.
+This repository contains a script, platform defitinion, test suite and custom peripheral models necessary to simulate OpenSBI and U-Boot on [the BeagleV platform](https://beaglev.seeed.cc) in [Renode](https://renode.io).
 
-To run those it is required to have Renode in version at least 1.12 installed in the host operating system (see the [documentation](https://docs.renode.io/en/latest/introduction/installing.html) for details).
+To run this platform you need Renode in version at least 1.12 installed in the host operating system (see the [documentation](https://docs.renode.io/en/latest/introduction/installing.html) for details).
 
 ## Running the simulation
 
-Assuming that Renode is installed and available in PATH, to run the demo execute:
+Assuming that Renode is installed and available in PATH, to run the demo check out this repository, enter it and execute:
 
-    renode beagelv.resc
+    renode beaglev.resc
 
 You should see the following output on UART:
 
@@ -56,11 +57,11 @@ GNU ld (GNU Binutils for Debian) 2.31.1
 
 ## Automatic testing of the simulation
 
-You can also run an automated robot test:
+You can also run an automated [robot](https://robotframework.org/) test:
 
-    renode-test beagelv.robot
+    renode-test beaglev.robot
    
-As a result you should see the following result:
+You should see the following result:
     
     Preparing suites
     Started Renode instance on port 9999; pid 3238544
