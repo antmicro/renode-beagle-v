@@ -1,20 +1,29 @@
+
 # This script runs OpenSBI and U-Boot on the BeagleV platform in Renode
 
 $name?="BeagleV"
+set bin $ORIGIN/binaries/fw_payload.elf
+set uboot $ORIGIN/binaries/u-boot
+set linux $ORIGIN/binaries/vmlinux
+set fit $ORIGIN/binaries/image.fit
 
+emulation SetSeed 0x1
 EnsureTypeIsLoaded "Antmicro.Renode.Peripherals.IRQControllers.PLIC.IPlatformLevelInterruptController"
 include $ORIGIN/models/BeagleV_PlatformLevelInterruptController.cs
 
 using sysbus
 mach create $name
 machine LoadPlatformDescription $ORIGIN/beaglev.repl
+emulation SetGlobalSerialExecution True
 
-showAnalyzer uart0
+showAnalyzer uart3
 
 macro reset
 """
-    sysbus LoadELF $ORIGIN/binaries/fw_payload.elf
-    sysbus LoadSymbolsFrom $ORIGIN/binaries/u-boot
+    sysbus LoadELF $bin
+    sysbus LoadSymbolsFrom $uboot
+    sysbus LoadSymbolsFrom $linux
+    sysbus LoadBinary $fit 0xa0000000
 """
 runMacro $reset
 
