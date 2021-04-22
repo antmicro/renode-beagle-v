@@ -7,25 +7,24 @@ Resource                      ${RENODEKEYWORDS}
 
 *** Test Cases ***
 Should Print Help
-    Create Terminal Tester   sysbus.uart0
     Execute Command          include @${CURDIR}/beaglev_starlight.resc
+    Create Terminal Tester   sysbus.uart3  1
 
     Start Emulation
 
-    Wait For Line On Uart    OpenSBI v0.6
-    Wait For Line On Uart    Platform Name\\s+: BeagleV     treatAsRegex=true
+    Wait For Line On Uart    OpenSBI v0.9
+    Wait For Line On Uart    Platform Name\\s+: StarFive     treatAsRegex=true
 
-    Wait For Line On Uart    U-Boot 2021.04
-    Wait For Line On Uart    Model: BeagleV
+    Wait For Line On Uart    U-Boot 2021.01
 
-    Wait For Prompt On Uart  Hit any key to stop autoboot
-    # send Q press
-    Send Key To Uart         0x51
+    Wait For Prompt On Uart  dwmac.10020000
+    # send Enter press
+    Send Key To Uart         0xD
 
-    Wait For Prompt On Uart  =>
+    Wait For Prompt On Uart  StarFive #
     Write Line To Uart       help
 
-    Wait For Line On Uart    base\\s+ - print or set address offset   treatAsRegex=true
-    Wait For Line On Uart    cp\\s+ - memory copy                     treatAsRegex=true
-    Wait For Line On Uart    unzip\\s+ - unzip a memory region        treatAsRegex=true
+    Wait For Line On Uart    base\\s+ - print or set address offset       treatAsRegex=true
+    Wait For Line On Uart    cp\\s+ - memory copy                         treatAsRegex=true
+    Wait For Line On Uart    unlz4\\s+ - lz4 uncompress a memory region   treatAsRegex=true
 
