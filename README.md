@@ -2,11 +2,11 @@
 
 Copyright (c) 2021 Antmicro ([www.antmicro.com](https://www.antmicro.com/))
 
-This repository contains a script, platform defitinion, test suite and custom peripheral models necessary to simulate OpenSBI and U-Boot on [the BeagleV platform](https://beaglev.seeed.cc) in [Renode](https://renode.io).
+This repository contains a script, platform definition, test suite and custom peripheral models necessary to simulate OpenSBI, U-Boot and Linux on [the BeagleV platform](https://beaglev.seeed.cc) in [Renode](https://renode.io).
 
 ## Installing Renode
 
-To run this platform you need Renode in version at least 1.12 installed in the host operating system (see the [documentation](https://docs.renode.io/en/latest/introduction/installing.html) for details).
+To run this platform you need Renode 1.12 installed in the host operating system (see the [documentation](https://docs.renode.io/en/latest/introduction/installing.html) for details).
 
 For Linux, you can use the portable version:
 ```
@@ -31,8 +31,7 @@ Assuming that Renode is installed and available in PATH, to run the demo check o
 You should see the following output on UART:
 
 ```
-Device Tree can't be expanded to accmodate new node
-OpenSBI v0.6
+OpenSBI v0.9
    ____                    _____ ____ _____
   / __ \                  / ____|  _ \_   _|
  | |  | |_ __   ___ _ __ | (___ | |_) || |
@@ -41,34 +40,79 @@ OpenSBI v0.6
   \____/| .__/ \___|_| |_|_____/|____/_____|
         | |
         |_|
-Platform Name          : BeagleV
-Platform HART Features : RV64ACDFIMS
-Platform Max HARTs     : 2
-Current Hart           : 0
-Firmware Base          : 0x80000000
-Firmware Size          : 76 KB
-Runtime SBI Version    : 0.2
-MIDELEG : 0x0000000000000222
-MEDELEG : 0x000000000000b109
-PMP0    : 0x0000000080000000-0x000000008001ffff (A)
-PMP1    : 0x0000000000000000-0xffffffffffffffff (A,R,W,X)
-U-Boot 2021.04-rc4-g6da3416bfa (Apr 02 2021 - 10:49:10 +0000)
+
+Platform Name             : StarFive VIC7100
+Platform Features         : timer,mfdeleg
+Platform HART Count       : 2
+Firmware Base             : 0x80000000
+Firmware Size             : 92 KB
+Runtime SBI Version       : 0.2
+
+Domain0 Name              : root
+Domain0 Boot HART         : 1
+Domain0 HARTs             : 0*,1*
+Domain0 Region00          : 0x0000000080000000-0x000000008001ffff ()
+Domain0 Region01          : 0x0000000000000000-0xffffffffffffffff (R,W,X)
+Domain0 Next Address      : 0x0000000080020000
+Domain0 Next Arg1         : 0x0000000088000000
+Domain0 Next Mode         : S-mode
+Domain0 SysReset          : yes
+
+Boot HART ID              : 1
+Boot HART Domain          : root
+Boot HART ISA             : rv64imafdcs
+Boot HART Features        : scounteren,mcounteren,time
+Boot HART PMP Count       : 16
+Boot HART PMP Granularity : 4
+Boot HART PMP Address Bits: 54
+Boot HART MHPM Count      : 0
+Boot HART MHPM Count      : 0
+Boot HART MIDELEG         : 0x0000000000000222
+Boot HART MEDELEG         : 0x000000000000b109
+
+
+U-Boot 2021.01-g7dac1a6e-dirty (Apr 21 2021 - 22:21:51 +0000)
+
+ofnode_read_prop: riscv,isa: rv64imafdc
 CPU:   rv64imafdc
-Model: BeagleV
+Model: sifive,freedom-u74-arty
 DRAM:  8 GiB
-In:    serial@11870000
-Out:   serial@11870000
-Err:   serial@11870000
-Model: BeagleV
-Net:   
-Warning: gmac@10020000 (eth0) using random MAC address - e2:43:70:da:ad:1b
-eth0: gmac@10020000
-Hit any key to stop autoboot:  0 
-=> version
-U-Boot 2021.04-rc4-g6da3416bfa (Apr 02 2021 - 10:49:10 +0000)
-riscv64-linux-gnu-gcc (Debian 8.3.0-2) 8.3.0
-GNU ld (GNU Binutils for Debian) 2.31.1
-=> 
+ofnode_read_prop: tick-timer: <not found>
+ofnode_read_u32_array: ranges: ofnode_read_u32_array: ranges: ofnode_read_u32_index
+: timebase-frequency: (not found)
+ofnode_read_u32_index: timebase-frequency: 0x5f5e10 (6250000)
+ofnode_read_u32_index: timebase-frequency: (not found)
+ofnode_read_u32_index: timebase-frequency: 0x5f5e10 (6250000)
+MMC:   VIC DWMMC0: 0
+In:    serial
+Out:   serial
+Err:   serial
+Model: sifive,freedom-u74-arty
+Net:   ofnode_read_prop: tick-timer: <not found>
+dwmac.10020000
+StarFive # version
+U-Boot 2021.01-g7dac1a6e-dirty (Apr 21 2021 - 22:21:51 +0000)
+
+riscv64-buildroot-linux-gnu-gcc.br_real (Buildroot -g2e13b6d) 10.2.0
+GNU ld (GNU Binutils) 2.34
+StarFive #
+```
+
+## Booting Linux
+
+To boot Linux, you must provide U-Boot with the following command:
+
+```
+StarFive # setenv fileaddr a0000000;bootm start ${fileaddr};bootm loados ${fileaddr};booti 0x80200000 0x86100000:${filesize} 0x86000000
+```
+
+This will load the kernel and the rootfs from RAM.
+
+To log in to the system, use the following credentials:
+
+```
+user: root
+password: starfive
 ```
 
 ## Automatic testing of the simulation
