@@ -122,10 +122,17 @@ sysbus:
     init:
         SilenceRange <0x02010000 0x1000>
         Tag <0x10000000 0x10000> "SDIO"
-        Tag <0x104C0000 0x10000> "USB30"
+        Tag <0x104C0000 0x40000> "USB30"
         Tag <0x11860000 0x10000> "QSPI"
         Tag <0x118B0000 0x10000> "I2C0"
         Tag <0x118C0000 0x10000> "I2C1"
         Tag <0x12450000 0x10000> "I2C1"
         Tag <0x100b0000 0x10000> "sgdam2"
         Tag <0x10500000 0x10000> "sgdam1"
+        Tag <0x11910000 0x10000> "GPIO"
+        Tag <0x11800000 0x10000> "CLKGEN_CSR"
+        Tag <0x11850000 0x10000> "SYSCTRL"
+        Tag <0x118D0000 0x10000> "TRNG"
+        Tag <0x10480000 0x30000> "DOM_AUDIO"
+        Tag <0x12240000 0x30000> "VOUT"
+
