@@ -25,7 +25,7 @@ python3 -m pip install -r renode_portable/tests/requirements.txt
 
 Assuming that Renode is installed and available in PATH, to run the demo check out this repository, enter it and execute:
 
-    renode beaglev.resc
+    renode beaglev_starlight.resc
 
 You should see the following output on UART:
 
