@@ -1,5 +1,5 @@
 
-# This script runs OpenSBI, U-Boot and Linux on the BeagleV platform in Renode
+# This script runs OpenSBI, U-Boot and Linux on the BeagleV Starlight platform in Renode
 
 $name?="BeagleV"
 set bin $ORIGIN/binaries/fw_payload.elf
@@ -13,7 +13,7 @@ include $ORIGIN/models/BeagleV_PlatformLevelInterruptController.cs
 
 using sysbus
 mach create $name
-machine LoadPlatformDescription $ORIGIN/beaglev.repl
+machine LoadPlatformDescription $ORIGIN/beaglev_starlight.repl
 emulation SetGlobalSerialExecution True
 
 showAnalyzer uart3

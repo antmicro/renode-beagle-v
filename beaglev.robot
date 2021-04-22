@@ -7,8 +7,8 @@ Resource                      ${RENODEKEYWORDS}
 
 *** Test Cases ***
 Should Print Help
-    Execute Command          include @${CURDIR}/beaglev.resc
     Create Terminal Tester   sysbus.uart0
+    Execute Command          include @${CURDIR}/beaglev_starlight.resc
 
     Start Emulation
 
