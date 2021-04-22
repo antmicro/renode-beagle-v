@@ -1,5 +1,5 @@
 
-# This script runs OpenSBI and U-Boot on the BeagleV platform in Renode
+# This script runs OpenSBI, U-Boot and Linux on the BeagleV platform in Renode
 
 $name?="BeagleV"
 set bin $ORIGIN/binaries/fw_payload.elf
@@ -27,3 +27,7 @@ macro reset
 """
 runMacro $reset
 
+echo "Script loaded. Now start with with the 'start' command."
+echo ""
+echo "After reaching U-Boot, boot to Linux with:"
+echo "setenv fileaddr a0000000;bootm start ${fileaddr};bootm loados ${fileaddr};booti 0x80200000 0x86100000:${filesize} 0x86000000"
