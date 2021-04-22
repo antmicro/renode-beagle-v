@@ -13,8 +13,7 @@ For Linux, you can use the portable version:
 wget https://github.com/renode/renode/releases/download/v1.12.0/renode-1.12.0.linux-portable.tar.gz
 mkdir renode_portable
 tar xf renode-1.12.0.linux-portable.tar.gz -C renode_portable --strip-components=1
-cd renode_portable
-export PATH="`pwd`:$PATH"
+export PATH="`pwd`/renode_portable:$PATH"
 ```
 
 To run Robot tests, you will also need to install some Python dependencies:
