@@ -18,7 +18,7 @@ export PATH="`pwd`/renode_portable:$PATH"
 
 To run Robot tests, you will also need to install some Python dependencies:
 ```
-python3 -m pip install -r tests/requirements.txt
+python3 -m pip install -r renode_portable/tests/requirements.txt
 ```
 
 ## Running the simulation
