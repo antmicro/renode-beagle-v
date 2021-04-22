@@ -71,7 +71,7 @@ Boot HART MIDELEG         : 0x0000000000000222
 Boot HART MEDELEG         : 0x000000000000b109
 
 
-U-Boot 2021.01-g7dac1a6e-dirty (Apr 21 2021 - 22:21:51 +0000)
+U-Boot 2021.01-g7dac1a6e-dirty (Apr 22 2021 - 13:15:25 +0000)
 
 ofnode_read_prop: riscv,isa: rv64imafdc
 CPU:   rv64imafdc
@@ -90,23 +90,61 @@ Err:   serial
 Model: sifive,freedom-u74-arty
 Net:   ofnode_read_prop: tick-timer: <not found>
 dwmac.10020000
-StarFive # version
-U-Boot 2021.01-g7dac1a6e-dirty (Apr 21 2021 - 22:21:51 +0000)
+Hit any key to stop autoboot:  0
+## Loading kernel from FIT Image at a0000000 ...
+   Using 'config-1' configuration
+   Trying 'vmlinux' kernel subimage
+     Description:  vmlinux
+     Type:         Kernel Image
+     Compression:  uncompressed
+     Data Start:   0xa00000c8
+     Data Size:    17660416 Bytes = 16.8 MiB
+     Architecture: RISC-V
+     OS:           Linux
+     Load Address: 0x80200000
+     Entry Point:  0x80200000
+   Verifying Hash Integrity ... OK
+## Loading fdt from FIT Image at a0000000 ...
+   Using 'config-1' configuration
+   Trying 'fdt' fdt subimage
+     Description:  unavailable
+     Type:         Flat Device Tree
+     Compression:  uncompressed
+     Data Start:   0xa2b48c04
+     Data Size:    16655 Bytes = 16.3 KiB
+     Architecture: RISC-V
+     Load Address: 0x86000000
+   Verifying Hash Integrity ... OK
+   Loading fdt from 0xa2b48c04 to 0x86000000
+   Booting using the fdt blob at 0x86000000
+## Loading loadables from FIT Image at a0000000 ...
+   Trying 'ramdisk' loadables subimage
+     Description:  buildroot initramfs
+     Type:         RAMDisk Image
+     Compression:  uncompressed
+     Data Start:   0xa10d7b7c
+     Data Size:    27725833 Bytes = 26.4 MiB
+     Architecture: RISC-V
+     OS:           Linux
+     Load Address: 0x86100000
+     Entry Point:  unavailable
+   Verifying Hash Integrity ... OK
+   Loading loadables from 0xa10d7b7c to 0x86100000
+   Loading Kernel Image
+## Flattened Device Tree blob at 86000000
+   Booting using the fdt blob at 0x86000000
+   Using Device Tree in place at 0000000086000000, end 000000008600710e
 
-riscv64-buildroot-linux-gnu-gcc.br_real (Buildroot -g2e13b6d) 10.2.0
-GNU ld (GNU Binutils) 2.34
-StarFive #
+Starting kernel ...
+
+[    0.000000] Linux version 5.10.6-g93604a0a3ecc (root@runner-97211546-project-347
+5-concurrent-0) (riscv64-buildroot-linux-gnu-gcc.br_real (Buildroot -g2e13b6d) 10.2
+.0, GNU ld (GNU Binutils) 2.34) #1 SMP Thu Apr 22 13:15:29 UTC 2021
+[    0.000000] OF: fdt: Ignoring memory range 0x80000000 - 0x80200000
+[    0.000000] earlycon: sbi0 at I/O port 0x0 (options '')
+[    0.000000] printk: bootconsole [sbi0] enabled
+...
 ```
-
-## Booting Linux
-
-To boot Linux, you must provide U-Boot with the following command:
-
-```
-StarFive # setenv fileaddr a0000000;bootm start ${fileaddr};bootm loados ${fileaddr};booti 0x80200000 0x86100000:${filesize} 0x86000000
-```
-
-This will load the kernel and the rootfs from RAM.
 
 To log in to the system, use the following credentials:
 
@@ -119,7 +157,7 @@ password: starfive
 
 You can also run an automated [robot](https://robotframework.org/) test:
 
-    renode-test beaglev.robot
+    test.sh beaglev.robot
    
 You should see the following result:
     
