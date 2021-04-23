@@ -1,0 +1,24 @@
+name: Test in Renode
+
+on: [push, pull_request,workflow_dispatch]
+
+jobs:
+  test:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Run tests
+        uses: antmicro/renode-actions/test-in-renode@main
+        with:
+          renode-version: '1.12.0+20210403git44d6786'
+          tests-to-run: 'beaglev.robot'
+      - name: Archive results
+        uses: actions/upload-artifact@v2
+        with:
+          name: test-results
+          path: |
+            report.html
+            log.html
+            robot_output.xml
+
