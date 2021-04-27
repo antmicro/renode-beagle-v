@@ -1,6 +1,6 @@
 # Renode simulation of the BeagleV platform
 
-Copyright (c) 2021 Antmicro ([www.antmicro.com](https://www.antmicro.com/))
+Copyright (c) 2021 [Antmicro](https://www.antmicro.com/)
 
 This repository contains a script, platform definition, test suite and custom peripheral models necessary to simulate OpenSBI, U-Boot and Linux on [the BeagleV platform](https://beaglev.seeed.cc) in [Renode](https://renode.io).
 
