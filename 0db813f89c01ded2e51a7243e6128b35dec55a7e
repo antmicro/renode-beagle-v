@@ -1,0 +1,13 @@
+{
+    "categories": [
+        "Edge AI & Software",
+        "ASIC & FPGA"
+
+    ],
+    "tags": [
+        "renode",
+        "risc-v",
+        "beaglev",
+        "starlight"
+    ]
+}
