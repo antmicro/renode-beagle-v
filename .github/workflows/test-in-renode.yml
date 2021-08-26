@@ -9,7 +9,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Run tests
-        uses: antmicro/renode-actions/test-in-renode@main
+        uses: antmicro/renode-test-action@v1.0.0
         with:
           renode-version: '1.12.0+20210403git44d6786'
           tests-to-run: 'beaglev.robot'
