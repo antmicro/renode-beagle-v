@@ -127,7 +127,7 @@ namespace Antmicro.Renode.Peripherals.IRQControllers
 
         public IReadOnlyDictionary<int, IGPIO> Connections { get; }
 
-        public int ForcedTarget
+        public int ForcedContext
         { 
             get => -1;
             set
@@ -276,7 +276,7 @@ namespace Antmicro.Renode.Peripherals.IRQControllers
 
             public void RefreshInterrupt()
             {
-                var forcedTarget = irqController.ForcedTarget;
+                var forcedTarget = irqController.ForcedContext;
                 if(forcedTarget != -1 && this.id != forcedTarget)
                 {
                     irqController.Connections[(int)this.id].Set(false);
@@ -326,7 +326,7 @@ namespace Antmicro.Renode.Peripherals.IRQControllers
             {
                 IrqSource pendingIrq;
 
-                var forcedTarget = irqController.ForcedTarget;
+                var forcedTarget = irqController.ForcedContext;
                 if(forcedTarget != -1 && this.id != forcedTarget)
                 {
                     pendingIrq = null;
