@@ -67,7 +67,7 @@ namespace Antmicro.Renode.Peripherals.IRQControllers
                                     {
                                         if(prioritiesEnabled)
                                         {
-                                            irqSources[j].Priority = value;
+                                            irqSources[j].Priority = (uint)value;
                                             RefreshInterrupts();
                                         }
                                     });
